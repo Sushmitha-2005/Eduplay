@@ -18,7 +18,7 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, '../frontend')));
 
 // Database connection
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/eduplay')
+mongoose.connect(process.env.MONGODB_URI || 'mongodb+srv://23eg106b54:susmitha%40123@cluster0.szytt6l.mongodb.net/eduplay?retryWrites=true&w=majority')
   .then(() => console.log('Connected to MongoDB'))
   .catch(err => console.error('MongoDB connection error:', err));
 
