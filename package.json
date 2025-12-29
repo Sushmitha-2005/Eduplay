@@ -5,10 +5,13 @@
   "main": "backend/server.js",
   "scripts": {
     "start": "node backend/server.js",
-    "install-deps": "npm install --prefix backend",
+    "build": "cd backend && npm install",
     "dev": "node backend/server.js"
   },
   "keywords": ["education", "games", "adaptive", "learning"],
   "author": "EduPlay Team",
-  "license": "MIT"
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  }
 }
