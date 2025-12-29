@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduPlay - Adaptive Educational Games</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-brand">
+            <span class="logo">🎮</span>
+            <span class="brand-name">EduPlay</span>
+        </div>
+        <div class="nav-links" id="navLinks">
+            <a href="#" onclick="showSection('home')" class="nav-link active">Home</a>
+            <a href="#" onclick="showSection('games')" class="nav-link">Games</a>
+            <a href="#" onclick="showSection('dashboard')" class="nav-link">Dashboard</a>
+            <button class="btn btn-logout" onclick="logout()">Logout</button>
+        </div>
+        <div class="user-info" id="userInfo">
+            <span id="usernameDisplay"></span>
+        </div>
+    </nav>
+
+    <!-- Auth Container -->
+    <div class="auth-container" id="authContainer">
+        <!-- Login Form -->
+        <div class="auth-card" id="loginCard">
+            <h2>Welcome Back!</h2>
+            <p class="subtitle">Login to continue your learning journey</p>
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" required placeholder="Enter your email">
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" required placeholder="Enter your password">
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">Login</button>
+            </form>
+            <p class="auth-switch">Don't have an account? <a href="#" onclick="showRegister()">Sign up</a></p>
+        </div>
+
+        <!-- Register Form -->
+        <div class="auth-card hidden" id="registerCard">
+            <h2>Join EduPlay!</h2>
+            <p class="subtitle">Start your adaptive learning adventure</p>
+            <form id="registerForm" onsubmit="handleRegister(event)">
+                <div class="form-group">
+                    <label for="regUsername">Username</label>
+                    <input type="text" id="regUsername" required placeholder="Choose a username" minlength="3">
+                </div>
+                <div class="form-group">
+                    <label for="regEmail">Email</label>
+                    <input type="email" id="regEmail" required placeholder="Enter your email">
+                </div>
+                <div class="form-group">
+                    <label for="regPassword">Password</label>
+                    <input type="password" id="regPassword" required placeholder="Create a password" minlength="6">
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">Sign Up</button>
+            </form>
+            <p class="auth-switch">Already have an account? <a href="#" onclick="showLogin()">Login</a></p>
+        </div>
+    </div>
+
+    <!-- Main App Container -->
+    <div class="app-container hidden" id="appContainer">
+        <!-- Home Section -->
+        <section class="section" id="homeSection">
+            <div class="welcome-banner">
+                <h1>Welcome to EduPlay, <span id="welcomeName"></span>!</h1>
+                <p>Learn through play with adaptive educational games</p>
+            </div>
+
+            <div class="recommendations-section">
+                <h2>📌 Recommended for You</h2>
+                <div class="recommendations-list" id="recommendationsList">
+                    <!-- Recommendations loaded dynamically -->
+                </div>
+            </div>
+
+            <div class="quick-stats">
+                <h2>📊 Quick Stats</h2>
+                <div class="stats-grid" id="quickStatsGrid">
+                    <!-- Stats loaded dynamically -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Games Section -->
+        <section class="section hidden" id="gamesSection">
+            <h1>Choose Your Game</h1>
+            <div class="games-grid">
+                <div class="game-card" onclick="startGame('mathReflex')">
+                    <div class="game-icon">🔢</div>
+                    <h3>Math Reflex</h3>
+                    <p>Test your quick math skills with adaptive difficulty</p>
+                    <div class="game-level" id="mathLevel">Level: 1</div>
+                </div>
+                <div class="game-card" onclick="startGame('memoryBoost')">
+                    <div class="game-icon">🧠</div>
+                    <h3>Memory Boost</h3>
+                    <p>Train your memory with pattern recognition</p>
+                    <div class="game-level" id="memoryLevel">Level: 1</div>
+                </div>
+                <div class="game-card" onclick="startGame('logicPuzzles')">
+                    <div class="game-icon">🧩</div>
+                    <h3>Logic Puzzles</h3>
+                    <p>Strengthen reasoning with adaptive challenges</p>
+                    <div class="game-level" id="logicLevel">Level: 1</div>
+                </div>
+                <div class="game-card" onclick="startGame('wordBuilder')">
+                    <div class="game-icon">📝</div>
+                    <h3>Word Builder</h3>
+                    <p>Build words from letters to enhance vocabulary</p>
+                    <div class="game-level" id="wordLevel">Level: 1</div>
+                </div>
+                <div class="game-card" onclick="startGame('patternMatch')">
+                    <div class="game-icon">🎨</div>
+                    <h3>Pattern Match</h3>
+                    <p>Match sequences and patterns to improve logic</p>
+                    <div class="game-level" id="patternLevel">Level: 1</div>
+                </div>
+                <div class="game-card" onclick="startGame('quickQuiz')">
+                    <div class="game-icon">⚡</div>
+                    <h3>Quick Quiz</h3>
+                    <p>Timed knowledge quizzes to enhance learning speed</p>
+                    <div class="game-level" id="quizLevel">Level: 1</div>
+                </div>
+                <div class="game-card" onclick="startGame('colorHunt')">
+                    <div class="game-icon">🌈</div>
+                    <h3>Color Hunt</h3>
+                    <p>Identify colors and patterns for visual learning fun</p>
+                    <div class="game-level" id="colorLevel">Level: 1</div>
+                </div>
+                <div class="game-card" onclick="startGame('shapeEscape')">
+                    <div class="game-icon">🔺</div>
+                    <h3>Shape Escape</h3>
+                    <p>Solve shape puzzles to enhance spatial reasoning</p>
+                    <div class="game-level" id="shapeLevel">Level: 1</div>
+                </div>
+                <div class="game-card" onclick="startGame('numberLink')">
+                    <div class="game-icon">🔢</div>
+                    <h3>Number Link</h3>
+                    <p>Connect numbers in sequence to strengthen numerical skills</p>
+                    <div class="game-level" id="numberLinkLevel">Level: 1</div>
+                </div>
+                <div class="game-card" onclick="startGame('mazeRunner')">
+                    <div class="game-icon">🏃‍♂️</div>
+                    <h3>Maze Runner</h3>
+                    <p>Navigate mazes to enhance problem-solving and planning</p>
+                    <div class="game-level" id="mazeLevel">Level: 1</div>
+                </div>
+                <div class="game-card" onclick="startGame('sudokuSolver')">
+                    <div class="game-icon">🧩</div>
+                    <h3>Sudoku Solver</h3>
+                    <p>Classic Sudoku puzzles with adaptive difficulty</p>
+                    <div class="game-level" id="sudokuLevel">Level: 1</div>
+                </div>
+                <div class="game-card" onclick="startGame('mathLadder')">
+                    <div class="game-icon">📈</div>
+                    <h3>Math Ladder</h3>
+                    <p>Solve math questions to climb levels; difficulty adapts</p>
+                    <div class="game-level" id="ladderLevel">Level: 1</div>
+                </div>
+                <div class="game-card" onclick="startGame('logicGrid')">
+                    <div class="game-icon">🗂️</div>
+                    <h3>Logic Grid</h3>
+                    <p>Fill grids logically to solve sum-based puzzles</p>
+                    <div class="game-level" id="logicGridLevel">Level: 1</div>
+                </div>
+                <div class="game-card" onclick="startGame('wordSearch')">
+                    <div class="game-icon">🔍</div>
+                    <h3>Word Search</h3>
+                    <p>Find hidden words in a grid to enhance vocabulary</p>
+                    <div class="game-level" id="wordSearchLevel">Level: 1</div>
+                </div>
+                <div class="game-card" onclick="startGame('sequenceSolver')">
+                    <div class="game-icon">🔗</div>
+                    <h3>Sequence Solver</h3>
+                    <p>Identify and complete numeric or letter sequences</p>
+                    <div class="game-level" id="sequenceLevel">Level: 1</div>
+                </div>
+                <div class="game-card" onclick="startGame('emojiPairs')">
+                    <div class="game-icon">🙂</div>
+                    <h3>Emoji Pairs</h3>
+                    <p>Memory game matching emoji pairs</p>
+                    <div class="game-level" id="emojiLevel">Level: 1</div>
+                </div>
+                <div class="game-card" onclick="startGame('triviaBlast')">
+                    <div class="game-icon">💡</div>
+                    <h3>Trivia Blast</h3>
+                    <p>Rapid-fire quiz on general knowledge</p>
+                    <div class="game-level" id="triviaLevel">Level: 1</div>
+                </div>
+                <div class="game-card" onclick="startGame('colorPatternQuiz')">
+                    <div class="game-icon">🎨</div>
+                    <h3>Color Pattern Quiz</h3>
+                    <p>Recognize and predict color patterns</p>
+                    <div class="game-level" id="colorPatternLevel">Level: 1</div>
+                </div>
+                <div class="game-card" onclick="startGame('puzzleBlocks')">
+                    <div class="game-icon">🧱</div>
+                    <h3>Puzzle Blocks</h3>
+                    <p>Arrange blocks/shapes to solve spatial puzzles</p>
+                    <div class="game-level" id="blocksLevel">Level: 1</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Game Play Area -->
+        <section class="section hidden" id="gamePlaySection">
+            <div class="game-header">
+                <button class="btn btn-back" onclick="exitGame()">← Back</button>
+                <h2 id="currentGameTitle">Game</h2>
+                <div class="game-stats">
+                    <span id="gameScore">Score: 0</span>
+                    <span id="gameTimer">Time: 00:00</span>
+                    <span id="gameDifficulty">Level: 1</span>
+                </div>
+            </div>
+            <div class="game-area" id="gameArea">
+                <!-- Game content loaded dynamically -->
+            </div>
+        </section>
+
+        <!-- Dashboard Section -->
+        <section class="section hidden" id="dashboardSection">
+            <h1>Performance Dashboard</h1>
+            
+            <div class="dashboard-grid">
+                <div class="dashboard-card skill-levels">
+                    <h3>🎯 Skill Levels</h3>
+                    <div class="skill-bars" id="skillBars">
+                        <!-- Skill levels loaded dynamically -->
+                    </div>
+                </div>
+
+                <div class="dashboard-card game-stats">
+                    <h3>📈 Game Statistics</h3>
+                    <div class="stats-table" id="statsTable">
+                        <!-- Stats loaded dynamically -->
+                    </div>
+                </div>
+
+                <div class="dashboard-card weak-areas">
+                    <h3>⚠️ Areas to Improve</h3>
+                    <div class="weak-areas-list" id="weakAreasList">
+                        <!-- Weak areas loaded dynamically -->
+                    </div>
+                </div>
+
+                <div class="dashboard-card progress-chart">
+                    <h3>📊 Progress Over Time</h3>
+                    <canvas id="progressChart"></canvas>
+                </div>
+
+                <div class="dashboard-card recent-games">
+                    <h3>🕹️ Recent Games</h3>
+                    <div class="recent-games-list" id="recentGamesList">
+                        <!-- Recent games loaded dynamically -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast hidden" id="toast">
+        <span id="toastMessage"></span>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/games/mathReflex.js"></script>
+    <script src="js/games/memoryBoost.js"></script>
+    <script src="js/games/logicPuzzles.js"></script>
+    <script src="js/games/wordBuilder.js"></script>
+    <script src="js/games/patternMatch.js"></script>
+    <script src="js/games/quickQuiz.js"></script>
+    <script src="js/games/colorHunt.js"></script>
+    <script src="js/games/shapeEscape.js"></script>
+    <script src="js/games/numberLink.js"></script>
+    <script src="js/games/mazeRunner.js"></script>
+    <script src="js/games/sudokuSolver.js"></script>
+    <script src="js/games/mathLadder.js"></script>
+    <script src="js/games/logicGrid.js"></script>
+    <script src="js/games/wordSearch.js"></script>
+    <script src="js/games/sequenceSolver.js"></script>
+    <script src="js/games/emojiPairs.js"></script>
+    <script src="js/games/triviaBlast.js"></script>
+    <script src="js/games/colorPatternQuiz.js"></script>
+    <script src="js/games/puzzleBlocks.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

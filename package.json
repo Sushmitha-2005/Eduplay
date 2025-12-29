@@ -1,0 +1,14 @@
+{
+  "name": "eduplay",
+  "version": "1.0.0",
+  "description": "Adaptive Educational Game Platform with 20 micro-games",
+  "main": "backend/server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "install-deps": "npm install --prefix backend",
+    "dev": "node backend/server.js"
+  },
+  "keywords": ["education", "games", "adaptive", "learning"],
+  "author": "EduPlay Team",
+  "license": "MIT"
+}
