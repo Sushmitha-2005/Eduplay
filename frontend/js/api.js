@@ -1,5 +1,5 @@
 // API Configuration and Helper Functions
-const API_BASE_URL = '/api';
+const API_BASE_URL = 'https://eduplay-4.onrender.com/api';
 
 // Get auth token from localStorage
 function getToken() {

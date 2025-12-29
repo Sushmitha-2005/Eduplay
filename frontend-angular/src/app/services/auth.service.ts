@@ -20,7 +20,7 @@ export class AuthService {
   private currentUserSubject = new BehaviorSubject<User | null>(null);
   currentUser$ = this.currentUserSubject.asObservable();
   
-  private apiUrl = '/api/auth';
+  private apiUrl = 'https://eduplay-4.onrender.com/api/auth';
 
   constructor(private http: HttpClient, private router: Router) {
     const storedUser = localStorage.getItem('eduplay_user');

@@ -37,7 +37,8 @@ export interface ScoreSubmission {
 
 @Injectable({ providedIn: 'root' })
 export class GameService {
-  private apiUrl = '/api/games';
+  private apiUrl = 'https://eduplay-4.onrender.com/api/games';
+  private performanceUrl = 'https://eduplay-4.onrender.com/api/performance';
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
@@ -59,13 +60,13 @@ export class GameService {
   }
 
   getDashboard(): Observable<any> {
-    return this.http.get('/api/performance/dashboard', {
+    return this.http.get(`${this.performanceUrl}/dashboard`, {
       headers: this.getHeaders()
     });
   }
 
   getRecommendations(): Observable<any[]> {
-    return this.http.get<any[]>('/api/performance/recommendations', {
+    return this.http.get<any[]>(`${this.performanceUrl}/recommendations`, {
       headers: this.getHeaders()
     });
   }
